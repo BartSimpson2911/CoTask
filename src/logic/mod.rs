@@ -1,7 +1,6 @@
 pub mod init_repo;
 pub mod add_task;
 pub mod list_task;
-pub mod  rand_hash;
 pub mod show_log;
 pub mod checkout;
 pub mod revert;
