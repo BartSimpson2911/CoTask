@@ -1,0 +1,57 @@
+name: COTASK CI pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Rust toolchain (official)
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy,rustfmt
+          targets: wasm32-unknown-unknown
+
+      # 3️⃣ Cache Cargo dependencies + build output
+      - name: Cache Cargo registry + build
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      # 4️⃣ Install wasm-pack (if your x.sh uses it)
+      - name: Install wasm-pack
+        run: cargo install wasm-pack --locked
+
+      # 5️⃣ Lint check (fail if warnings)
+      - name: Clippy Lint
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      # 6️⃣ Format enforcement
+      - name: Rustfmt Check
+        run: cargo fmt --all -- --check
+
+      # 7️⃣ Run tests
+      - name: Run Tests
+        run: cargo test --all-features
+
+      # 8️⃣ Make x.sh executable
+      - name: Make script executable
+        run: chmod +x CoTask/x.sh
+
+      # 9️⃣ Build using your custom script
+      - name: Build Project
+        run: bash CoTask/x.sh build
