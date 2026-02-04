@@ -50,8 +50,8 @@ jobs:
 
       # 8️⃣ Make x.sh executable
       - name: Make script executable
-        run: chmod +x CoTask/x.sh
+        run: chmod +x x.sh
 
       # 9️⃣ Build using your custom script
       - name: Build Project
-        run: bash CoTask/x.sh build
+        run: bash ./x.sh build
