@@ -48,14 +48,12 @@ pub fn diff(c1: usize, c2: usize) {
 
     // Status changes
     for (id, task1) in &map1 {
-        if let Some(task2) = map2.get(id) {
-            if task1.completed != task2.completed {
+        if let Some(task2) = map2.get(id) && task1.completed != task2.completed{
                 if task2.completed {
                     println!("✓ Completed: {}. {}", task2.id, task2.text);
                 } else {
                     println!("↺ Marked incomplete: {}. {}", task2.id, task2.text);
                 }
-            }
         }
     }
 }

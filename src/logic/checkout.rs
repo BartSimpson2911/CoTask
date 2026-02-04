@@ -28,8 +28,8 @@ pub fn checkout_ref(name: &str) {
     // 1) Branch check
     let branch_path = format!(".cotask/refs/{}", name);
     if fs::metadata(&branch_path).is_ok() {
-        if let Ok(current) = read_head_branch() {
-            if current == name {
+        if let Ok(current) = read_head_branch() && current == name  {
+            {
                 println!("Already on branch '{}'", name);
                 return;
             }

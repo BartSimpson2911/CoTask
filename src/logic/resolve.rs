@@ -6,13 +6,11 @@ use crate::storage::{
 use crate::models::commit_model::Commit;
 
 pub fn resolve(task_id: usize, done: bool) {
-    let conflict = match fs::read_to_string(".cotask/MERGE_CONFLICT") {
-        Ok(c) => c,
-        Err(_) => {
-            println!("No conflict to resolve.");
-            return;
-        }
-    };
+    if fs::read_to_string(".cotask/MERGE_CONFLICT").is_err() {
+    println!("No merge conflict to resolve");
+    return;
+    }
+
 
     let branch = read_head_branch().unwrap();
     let head = read_branch_commit(&branch).unwrap();

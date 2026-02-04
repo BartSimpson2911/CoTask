@@ -1,5 +1,5 @@
 use std::fs;
-use crate::storage::{commit, head::{read_branch_commit, read_head_branch}};
+use crate::storage::{head::{read_branch_commit, read_head_branch}};
 
 pub fn create_branch(name: &str) {
     let current_branch = match read_head_branch() {

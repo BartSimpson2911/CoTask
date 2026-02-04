@@ -125,7 +125,7 @@ fn main() {
         }
         "--help" => {
             show_help::show_help();
-            return;
+        
         }
 
         "tag" => {

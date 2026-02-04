@@ -13,10 +13,10 @@ pub fn export_repo() {
     if let Ok(entries) = fs::read_dir(".cotask/commits") {
         for e in entries.flatten() {
             let name = e.file_name().into_string().unwrap();
-            if let Ok(num) = name.trim_end_matches(".json").parse::<usize>() {
-                if let Ok(commit) = load_commit(num) {
-                    commits.insert(num, commit);
-                }
+            if let Ok(num) = name.trim_end_matches(".json").parse::<usize>() && let Ok(commit) = load_commit(num)  {
+                
+                commits.insert(num, commit);
+                
             }
         }
     }

@@ -48,10 +48,8 @@ fn next_stash_id() -> usize {
     let mut max = 0;
     if let Ok(entries) = fs::read_dir(".cotask/stash") {
         for e in entries.flatten() {
-            if let Some(name) = e.file_name().to_str() {
-                if let Ok(n) = name.trim_end_matches(".json").parse::<usize>() {
-                    if n > max { max = n; }
-                }
+            if let Some(name) = e.file_name().to_str() && let Ok(n) = name.trim_end_matches(".json").parse::<usize>() &&  n > max {        
+                max = n;
             }
         }
     }
@@ -62,10 +60,8 @@ fn latest_stash_id() -> usize {
     let mut max = 0;
     if let Ok(entries) = fs::read_dir(".cotask/stash") {
         for e in entries.flatten() {
-            if let Some(name) = e.file_name().to_str() {
-                if let Ok(n) = name.trim_end_matches(".json").parse::<usize>() {
-                    if n > max { max = n; }
-                }
+            if let Some(name) = e.file_name().to_str() && let Ok(n) = name.trim_end_matches(".json").parse::<usize>()  &&  n > max {
+                max = n;
             }
         }
     }
